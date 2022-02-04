@@ -17,6 +17,8 @@ else
 fi
 
 set -e
+ls -lh
+ls -lh ../
 ls -lh "$_BARGS_PATH" 1>/dev/null
 set +e
 
