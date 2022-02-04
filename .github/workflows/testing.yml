@@ -1,0 +1,26 @@
+name: testing
+
+on:
+  push:
+    branches: [development]
+    paths-ignore:
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  dispatch_test_action:
+    name: Dispatch Test Action
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Workflow Dispatch Status
+        uses: unfor19/hero-action@master
+        with:
+          action: dispatch-status
+          gh_token: ${{ secrets.GH_TOKEN }}
+          src_repository: ${{ github.repository }}
+          src_workflow_name: ${{ github.workflow }}
+          src_sha: ${{ github.sha }}
+          target_repository: ${{ github.repository }}-test
+          target_workflow_name: test-action.yml
+          target_ref: master
