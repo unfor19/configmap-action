@@ -1,6 +1,14 @@
 # configmap-action
 
+[![testing](https://github.com/unfor19/configmap-action/workflows/testing/badge.svg)](https://github.com/unfor19/configmap-action/actions?query=workflow%3Atesting)
+[![test-action](https://github.com/unfor19/configmap-action-test/workflows/test-action/badge.svg)](https://github.com/unfor19/configmap-action-test/actions?query=workflow%3Atest-action)
+
+
 Exports a ConfigMap as an [output](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) according to a given key, such as `GIT_BRANCH` or `DEPLOYMENT_ENVIRONMENT` and consume it in other jobs ([needs](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds)).
+
+Tested in [unfor19/configmap-action-test](https://github.com/unfor19/configmap-action-test/actions?query=workflow%3Atest-action)
+
+
 
 ## Usage
 
