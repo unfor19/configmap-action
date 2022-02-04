@@ -54,7 +54,7 @@ GitHub's Linux [ubuntu-20.04](https://github.com/actions/virtual-environments/bl
    ```yaml
    build:
      runs-on: ubuntu-20.04
-     name: Build ${{ matrix.configmap.CONFIGMAP_SELECTED_KEY }}
+     name: Build ${{ matrix.configmap.NODE_VERSION }}
      ### Add the following block to each job
      ### -----------------------------------------------------
      needs:
