@@ -9,7 +9,7 @@
 
 
 ### Parsing command-line arguments
-if [[ "$GITHUB_ACTION" = "true" || "$IS_DOCKER" = "true" ]]; then
+if [[ "$IS_DOCKER" = "true" ]]; then
     #shellcheck disable=SC1091
     source "/code/bargs.sh" "$@"
 else
