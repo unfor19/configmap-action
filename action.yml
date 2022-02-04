@@ -13,8 +13,12 @@ inputs:
     description: ""
     default: "null"
 outputs:
-  CONFIGMAP_MAP: ${{ steps.export-configmap.outputs.CONFIGMAP_MAP }}
-  CONFIGMAP_SELECTED_KEY: ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
+  CONFIGMAP_MAP:
+    description: "The select configurations JSON, ready for re-use with fromJSON()"
+    value: ${{ steps.export-configmap.outputs.CONFIGMAP_MAP }}
+  CONFIGMAP_SELECTED_KEY:
+    description: "The exported CONFIGMAP_MAP is based on this key"
+    value: ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
 
 runs:
   using: composite
