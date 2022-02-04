@@ -7,14 +7,6 @@
       "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_PRODUCTION"
     }
   ],
-  "staging": [
-    {
-      "NODE_ENV": "production",
-      "STATUS": "delighted",
-      "AWS_ACCESS_KEY_ID_NAME": "AWS_ACCESS_KEY_ID_STAGING",
-      "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_STAGING"
-    }
-  ],
   "development": [
     {
       "NODE_ENV": "development",
