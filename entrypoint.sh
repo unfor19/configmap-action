@@ -7,16 +7,20 @@
 ### jq
 ### ----------------------------------------
 
-
 ### Parsing command-line arguments
 if [[ "$IS_DOCKER" = "true" ]]; then
     #shellcheck disable=SC1091
-    source "/code/bargs.sh" "$@"
+    _BARGS_PATH="/code/bargs.sh"
 else
     #shellcheck disable=SC1090
-    source "${PWD}/$(dirname "${BASH_SOURCE[0]}")/bargs.sh" "$@"
+    _BARGS_PATH="$(dirname BASH_SOURCE[0])/bargs.sh"
 fi
 
+set -e
+ls -lh "$_BARGS_PATH" 1>/dev/null
+set +e
+
+source "$_BARGS_PATH" "$@"
 set -e
 set -o pipefail
 
