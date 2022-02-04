@@ -2,7 +2,7 @@ name: configmap-action
 branding:
   icon: "settings"
   color: "white"
-description: "Exports a ConfigMap as an [output](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) according to a given key, such as `GIT_BRANCH` or `DEPLOYMENT_ENVIRONMENT` and consume it in other jobs ([needs](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds))."
+description: "Exports a ConfigMap as an job-outputs according to a given key, and consume it in other jobs with 'needs'"
 inputs:
   configmap_key:
     required: false
