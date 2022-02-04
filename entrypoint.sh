@@ -11,14 +11,14 @@
 if [[ "$IS_DOCKER" = "true" ]]; then
     #shellcheck disable=SC1091
     _BARGS_PATH="/code/bargs.sh"
+elif [[ "$GITHUB_ACTION" = "true" ]]; then
+    _BARGS_PATH="$BARGS_PATH"
 else
     #shellcheck disable=SC1090
     _BARGS_PATH="$(dirname BASH_SOURCE[0])/bargs.sh"
 fi
 
 set -e
-ls -lh
-ls -lh ../
 ls -lh "$_BARGS_PATH" 1>/dev/null
 set +e
 

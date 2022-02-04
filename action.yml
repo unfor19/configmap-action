@@ -24,14 +24,13 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v2
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
-      shell: bash
     - name: Export Configmap
       env:
         CONFIGMAP_KEY: ${{ inputs.configmap_key }}
         CONFIGMAP_MAP: ${{ inputs.configmap_map }}
+        BARGS_PATH: ${{ github.action_path }}/bargs.sh
       id: export-configmap
-      run: entrypoint.sh
+      run: ${{ github.action_path }}/entrypoint.sh
       shell: bash
     - name: Test Export
       # Fails if CONFIGMAP cannot be converted with fromJSON
