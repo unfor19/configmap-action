@@ -31,7 +31,7 @@ runs:
         CONFIGMAP_KEY: ${{ inputs.configmap_key }}
         CONFIGMAP_MAP: ${{ inputs.configmap_map }}
       id: export-configmap
-      run: ./entrypoint.sh
+      run: entrypoint.sh
       shell: bash
     - name: Test Export
       # Fails if CONFIGMAP cannot be converted with fromJSON
