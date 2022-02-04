@@ -5,7 +5,7 @@ on:
     branches: [development]
     paths-ignore:
       - "README.md"
-  workflow_dispatch:
+  workflow_dispatch: # Trigger
 
 jobs:
   dispatch_test_action:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Workflow Dispatch Status
-        uses: unfor19/hero-action@master
+        uses: unfor19/hero-action@v1.0.2
         with:
           action: dispatch-status
           gh_token: ${{ secrets.GH_TOKEN }}
