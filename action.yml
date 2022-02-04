@@ -1,0 +1,34 @@
+name: configmap-action
+branding:
+  icon: "settings"
+  color: "white"
+description: "Exports a ConfigMap as an [output](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) according to a given key, such as `GIT_BRANCH` or `DEPLOYMENT_ENVIRONMENT` and consume it in other jobs ([needs](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds))."
+inputs:
+  configmap_key:
+    required: false
+    description: ""
+    default: ""
+  configmap_map:
+    required: true
+    description: ""
+    default: "null"
+outputs:
+  CONFIGMAP_MAP: ${{ steps.export-configmap.outputs.CONFIGMAP_MAP }}
+  CONFIGMAP_SELECTED_KEY: ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
+    - name: Export Configmap
+      env:
+        CONFIGMAP_KEY: ${{ inputs.configmap_key }}
+        CONFIGMAP_MAP: ${{ inputs.configmap_map }}
+      id: export-configmap
+      run: ./entrypoint.sh
+    - name: Test Export
+      # Fails if CONFIGMAP cannot be converted with fromJSON
+      # Better finding it out here and avoid triggering the next jobs
+      run: |
+        echo ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
+        echo ${{ fromJSON(steps.export-configmap.outputs.CONFIGMAP_MAP) }}
