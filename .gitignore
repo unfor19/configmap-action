@@ -1,0 +1,4 @@
+.*
+!.github
+!.*ignore*
+actions-runner
