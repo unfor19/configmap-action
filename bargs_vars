@@ -2,16 +2,19 @@
 name=configmap_map
 short=cm
 description=A JSON input which contains a key per desired configuration
+allow_env_var=true
 ---
 name=configmap_key
 short=key
 description=Fetch configurations according to this key
+allow_env_var=true
 allow_empty=true
 ---
 name=configmap_default_key_name
 short=dkey
 description=The default configuration to fetch when configmap_key is not found
 default="default"
+allow_env_var=true
 ---
 name=bargs
 description=bash entrypoint.sh --configmap-map 
