@@ -1,0 +1,41 @@
+{
+  "production": [
+    {
+      "NODE_ENV": "production",
+      "STATUS": "happy",
+      "AWS_ACCESS_KEY_ID_NAME": "AWS_ACCESS_KEY_ID_PRODUCTION",
+      "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_PRODUCTION"
+    }
+  ],
+  "staging": [
+    {
+      "NODE_ENV": "production",
+      "STATUS": "delighted",
+      "AWS_ACCESS_KEY_ID_NAME": "AWS_ACCESS_KEY_ID_STAGING",
+      "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_STAGING"
+    }
+  ],
+  "development": [
+    {
+      "NODE_ENV": "development",
+      "STATUS": "joyful",
+      "NODE_VERSION": "15",
+      "AWS_ACCESS_KEY_ID_NAME": "AWS_ACCESS_KEY_ID_DEVELOPMENT",
+      "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
+    },
+    {
+      "NODE_ENV": "development",
+      "NODE_VERSION": "16",
+      "STATUS": "joyful",
+      "AWS_ACCESS_KEY_ID_NAME": "AWS_ACCESS_KEY_ID_DEVELOPMENT",
+      "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
+    }
+  ],
+  "default": [
+    {
+      "NODE_ENV": "development",
+      "NODE_VERSION": "15",
+      "STATUS": "cheerful"
+    }
+  ]
+}
