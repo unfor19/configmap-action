@@ -30,9 +30,11 @@ runs:
         CONFIGMAP_MAP: ${{ inputs.configmap_map }}
       id: export-configmap
       run: ./entrypoint.sh
+      shell: bash
     - name: Test Export
       # Fails if CONFIGMAP cannot be converted with fromJSON
       # Better finding it out here and avoid triggering the next jobs
       run: |
         echo ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
         echo ${{ fromJSON(steps.export-configmap.outputs.CONFIGMAP_MAP) }}
+      shell: bash
