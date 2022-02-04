@@ -11,7 +11,7 @@
 if [[ "$IS_DOCKER" = "true" ]]; then
     #shellcheck disable=SC1091
     _BARGS_PATH="/code/bargs.sh"
-elif [[ "$GITHUB_ACTION" = "true" ]]; then
+elif [[ -n "$GITHUB_ACTION" ]]; then
     _BARGS_PATH="$BARGS_PATH"
 else
     #shellcheck disable=SC1090
