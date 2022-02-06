@@ -79,14 +79,14 @@ main(){
     local selected_key=""
 
     if [[ -n "$configmap_default_key_name" ]]; then
-        configmap_default_key_name_exists="$(echo ${configmap_map} | jq .${configmap_default_key_name})"
+        configmap_default_key_name_exists="$(echo ${configmap_map} | jq .${configmap_default_key_name} 2>/dev/null || true)"
         msg_debug "configmap_default_key_name_exists=${configmap_default_key_name_exists}"
         [[ -n "$configmap_default_key_name_exists" && "$configmap_default_key_name_exists" != "null" ]] && selected_key="$configmap_default_key_name"
         msg_debug "selected_key=${selected_key}"
     fi
 
     if [[ -n "$configmap_key" ]]; then
-        configmap_key_exists="$(echo ${configmap_map} | jq .${configmap_key})"
+        configmap_key_exists="$(echo ${configmap_map} | jq .${configmap_key} 2>/dev/null || true)"
         msg_debug "configmap_key_exists=${configmap_key_exists}"
         [[ -n "$configmap_key_exists" && "$configmap_key_exists" != "null" ]] && selected_key="$configmap_key"
         msg_debug "selected_key=${selected_key}"
