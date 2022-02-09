@@ -12,6 +12,14 @@ inputs:
     required: true
     description: ""
     default: "null"
+  configmap_default_key_name:
+    description: The default configuration to fetch when configmap_key is not found
+    value: "default"
+  configmap_skip_env:
+    description: |
+      By default, all outputs are exported as env var in $GITHUB_ENV. 
+      Set to true if you wish to disable this behavior
+    value: "null"
 outputs:
   CONFIGMAP_MAP:
     description: "The select configurations JSON, ready for re-use with fromJSON()"
@@ -19,11 +27,6 @@ outputs:
   CONFIGMAP_SELECTED_KEY:
     description: "The exported CONFIGMAP_MAP is based on this key"
     value: ${{ steps.export-configmap.outputs.CONFIGMAP_SELECTED_KEY }}
-  CONFIGMAP_SKIP_ENV:
-    description: |
-      By default, all outputs are exported as env var in $GITHUB_ENV. 
-      Set to true if you wish to disable this behavior
-    value: "null"
 
 runs:
   using: composite
