@@ -77,6 +77,7 @@ main(){
     local configmap_default_key_name="$_CONFIGMAP_DEFAULT_KEY_NAME"    
     local configmap_default_key_name_exists=""
     local selected_key=""
+    local configmap_selected_key_env_vars=""
 
     if [[ -n "$configmap_default_key_name" ]]; then
         configmap_default_key_name_exists="$(echo ${configmap_map} | jq .${configmap_default_key_name} 2>/dev/null || true)"
@@ -104,6 +105,13 @@ main(){
     set_step_output "CONFIGMAP_MAP" "$(echo ${configmap_map} | jq -cr ".${selected_key} | tojson")"
     set_step_output "CONFIGMAP_SELECTED_KEY" "$selected_key"
 
+    if [[ "$_CONFIGMAP_SKIP_ENV" != "true" ]]; then
+        msg_log "Setting outputs as env vars in current job ..."
+        configmap_selected_key_env_vars=$(echo "$configmap_map" | jq  -rc '.'"${selected_key}"'[] | to_entries|map("\"\(.key)=\(.value|tostring)\"")|.[]')
+        echo "$configmap_selected_key_env_vars" >> "$GITHUB_ENV"
+        msg_log "Completed setting env vars, use them in your workflow with \${{ env.MY_VAR }}\""
+    fi
+
     msg_log "Completed successfully"
 }
 
@@ -111,6 +119,7 @@ main(){
 ### Global Variables
 _CONFIGMAP_MAP="$CONFIGMAP_MAP"
 _CONFIGMAP_KEY="$CONFIGMAP_KEY"
+_CONFIGMAP_SKIP_ENV="${CONFIGMAP_SKIP_ENV:-"false"}"
 _CONFIGMAP_DEFAULT_KEY_NAME="${CONFIGMAP_DEFAULT_KEY_NAME:-"default"}"
 _CONFIGMAP_DEBUG="${CONFIGMAP_DEBUG:-"false"}"
 
