@@ -16,6 +16,12 @@ description=The default configuration to fetch when configmap_key is not found
 default="default"
 allow_env_var=true
 ---
+name=config_skip_env
+short=skip_env
+description=By default, all outputs are exported as env var in $GITHUB_ENV. Set to true if you wish to disable this behavior
+default="false"
+allow_env_var=true
+---
 name=bargs
 description=bash entrypoint.sh --configmap-map 
 default=irrelevant
