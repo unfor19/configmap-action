@@ -38,11 +38,13 @@ GitHub's Linux [ubuntu-20.04](https://github.com/actions/virtual-environments/bl
          run: |
            echo "::set-output name=configmap::$(jq -c . ${{ env.CONFIGMAP_FILE_PATH }})"
        - name: Export Configmap
+         uses: unfor19/configmap-action@development
          with:
            configmap_map: ${{ steps.set-configmap.outputs.configmap }}
            configmap_key: ${{ github.ref_name }} # The branch or tag name that triggered the workflow run
+           configmap_default_key_name: "default" # The default configuration to fetch when configmap_key is not found
+           configmap_skip_env: "false" # By default, all outputs are exported as env var in $GITHUB_ENV Set to true if you wish to disable this behavior
          id: export-configmap
-         uses: unfor19/configmap-action@development
       ### Required outputs - feel free to add more outputs
       ### -----------------------------------------------------
       outputs:
@@ -108,15 +110,6 @@ Secrets **names** are exposed to all steps in a job, though values of secrets ca
      deploy:
        runs-on: ubuntu-20.04
        name: Deploy to ${{ needs.prepare.outputs.CONFIGMAP_SELECTED_KEY }}
-       if: ${{ always() }}
-       ### Add the following condition to skip deployments for non-environment branches
-       # if: |
-       #   always() &&
-       #   needs.prepare.outputs.CONFIGMAP_SELECTED_KEY != '' &&
-       #   needs.prepare.outputs.CONFIGMAP_SELECTED_KEY != 'default' &&
-       #   github.event_name == 'push'
-       ### Add the following block to each job
-       ### -----------------------------------------------------
        needs:
          - prepare
          - build
