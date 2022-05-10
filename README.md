@@ -3,8 +3,14 @@
 [![testing](https://github.com/unfor19/configmap-action/workflows/testing/badge.svg)](https://github.com/unfor19/configmap-action/actions?query=workflow%3Atesting)
 [![test-action](https://github.com/unfor19/configmap-action-test/workflows/test-action/badge.svg)](https://github.com/unfor19/configmap-action-test/actions?query=workflow%3Atest-action)
 
+Exports [configmap.json](./configmap.json) as a [job-output]([output](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs)) according to a given key, such as `GIT_BRANCH` or `DEPLOYMENT_ENVIRONMENT`, which is later consumed by other jobs with "[needs](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds)".
 
-Exports a ConfigMap as an [output](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs) according to a given key, such as `GIT_BRANCH` or `DEPLOYMENT_ENVIRONMENT` and consume it in other jobs ([needs](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idneeds)).
+For GitHub Enterprise customers, the same idea is implemented by [Using environments for deployment
+](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment). Bear in mind that:
+
+> Environments, environment protection rules, and environment secrets are available in public repositories for all products. For access to environments in private repositories, you must use GitHub Enterprise. For more information, see "GitHub's products."
+
+This action is an alternative implemenation of GitHub Environments, for using environment specific configurations according to a given key; such as `GIT_BRANCH`, see [Usage](#Usage) section.
 
 Tested in [unfor19/configmap-action-test](https://github.com/unfor19/configmap-action-test/actions?query=workflow%3Atest-action)
 
