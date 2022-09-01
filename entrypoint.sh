@@ -107,7 +107,7 @@ main(){
 
     msg_debug "Print configmap_map to JSON"
 
-    set_step_output "CONFIGMAP_MAP" "$(echo "${configmap_map}" | jq -cr '."'".${selected_key}"'" | tojson')"
+    set_step_output "CONFIGMAP_MAP" "$(echo "${configmap_map}" | jq -cr '."'"${selected_key}"'" | tojson')"
     set_step_output "CONFIGMAP_SELECTED_KEY" "$selected_key"
 
     if [[ "$_CONFIGMAP_SKIP_ENV" != "true" ]]; then
