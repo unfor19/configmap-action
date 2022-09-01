@@ -113,7 +113,7 @@ main(){
     if [[ "$_CONFIGMAP_SKIP_ENV" != "true" ]]; then
         msg_log "Setting outputs as env vars in current job ..."
         configmap_selected_key_env_vars=$(echo "$configmap_map" | jq  -rc '."'"${selected_key}"'"[] | to_entries|map("\(.key)=\(.value|tostring)")|.[]')
-        msg_log "Exporting environment variable to GITHUB_ENV=${_GITHUB_ENV}"
+        msg_debug "Exporting environment variable to GITHUB_ENV=${_GITHUB_ENV}"
         echo "$configmap_selected_key_env_vars" >> "$_GITHUB_ENV"
         msg_log "Completed setting env vars, use them in your workflow with \${{ env.MY_VAR }}\""
     fi
