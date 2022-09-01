@@ -23,6 +23,13 @@
       "AWS_SECRET_ACCESS_KEY_NAME": "AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
     }
   ],
+  "ci/test-branch": [
+    {
+      "NODE_ENV": "development",
+      "NODE_VERSION": "15",
+      "STATUS": "testbranch"
+    }
+  ],
   "default": [
     {
       "NODE_ENV": "development",

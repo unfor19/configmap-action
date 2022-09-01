@@ -80,17 +80,23 @@ main(){
     local configmap_selected_key_env_vars=""
 
     if [[ -n "$configmap_default_key_name" ]]; then
-        configmap_default_key_name_exists="$(echo ${configmap_map} | jq .${configmap_default_key_name} 2>/dev/null || true)"
+        configmap_default_key_name_exists="$(echo "${configmap_map}" | jq ".${configmap_default_key_name}" 2>/dev/null || true)"
         msg_debug "configmap_default_key_name_exists=${configmap_default_key_name_exists}"
         [[ -n "$configmap_default_key_name_exists" && "$configmap_default_key_name_exists" != "null" ]] && selected_key="$configmap_default_key_name"
         msg_debug "selected_key=${selected_key}"
+    else
+        msg_debug "configmap_default_key_name="
     fi
 
+
+    msg_debug "Given configmap_key=${configmap_key}"
     if [[ -n "$configmap_key" ]]; then
-        configmap_key_exists="$(echo ${configmap_map} | jq .${configmap_key} 2>/dev/null || true)"
+        configmap_key_exists="$(echo "${configmap_map}" | jq ".'${configmap_key}'" 2>/dev/null || true)"
         msg_debug "configmap_key_exists=${configmap_key_exists}"
         [[ -n "$configmap_key_exists" && "$configmap_key_exists" != "null" ]] && selected_key="$configmap_key"
         msg_debug "selected_key=${selected_key}"
+    else
+        msg_debug "configmap_key is empty"
     fi
 
     if [[ -n "$selected_key" && "$selected_key" != "null" ]]; then
@@ -100,15 +106,16 @@ main(){
     fi
 
     msg_debug "Print configmap_map to JSON"
-    msg_debug "$(echo ""; echo ${configmap_map} | jq -cr ".${selected_key} | tojson")"
+    msg_debug "$(echo ""; echo "${configmap_map}" | jq -cr ".${selected_key} | tojson")"
 
-    set_step_output "CONFIGMAP_MAP" "$(echo ${configmap_map} | jq -cr ".${selected_key} | tojson")"
+    set_step_output "CONFIGMAP_MAP" "$(echo "${configmap_map}" | jq -cr ".${selected_key} | tojson")"
     set_step_output "CONFIGMAP_SELECTED_KEY" "$selected_key"
 
     if [[ "$_CONFIGMAP_SKIP_ENV" != "true" ]]; then
         msg_log "Setting outputs as env vars in current job ..."
         configmap_selected_key_env_vars=$(echo "$configmap_map" | jq  -rc '.'"${selected_key}"'[] | to_entries|map("\(.key)=\(.value|tostring)")|.[]')
-        echo "$configmap_selected_key_env_vars" >> "$GITHUB_ENV"
+        msg_log "Exporting environment variable to GITHUB_ENV=${_GITHUB_ENV}"
+        echo "$configmap_selected_key_env_vars" >> "$_GITHUB_ENV"
         msg_log "Completed setting env vars, use them in your workflow with \${{ env.MY_VAR }}\""
     fi
 
@@ -117,6 +124,7 @@ main(){
 
 
 ### Global Variables
+_GITHUB_ENV="${GITHUB_ENV:-".github.env"}"
 _CONFIGMAP_MAP="$CONFIGMAP_MAP"
 _CONFIGMAP_KEY="$CONFIGMAP_KEY"
 _CONFIGMAP_SKIP_ENV="${CONFIGMAP_SKIP_ENV:-"false"}"
