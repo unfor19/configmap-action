@@ -1,0 +1,4 @@
+export CONFIGMAP_MAP=$(jq -c . configmap.json) \
+    CONFIGMAP_KEY=ci/test-branch \
+    CONFIGMAP_DEBUG="true" \
+    GITHUB_ENV=.env.github
