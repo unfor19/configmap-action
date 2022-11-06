@@ -54,7 +54,7 @@ set_step_output(){
     local output_name="$1"
     local output_value="$2"
     msg_debug "Setting the output ${output_name}=${output_value}"
-    echo "::set-output name=${output_name}::${output_value}"
+    echo "${output_name}=${output_value}" >> $GITHUB_OUTPUT
 }
 
 
