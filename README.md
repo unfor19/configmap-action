@@ -42,7 +42,7 @@ GitHub's Linux [ubuntu-20.04](https://github.com/actions/virtual-environments/bl
            CONFIGMAP_FILE_PATH: configmap.json
          id: set-configmap
          run: |
-           echo "::set-output name=configmap::$(jq -c . ${{ env.CONFIGMAP_FILE_PATH }})"
+           echo "configmap=$(jq -c . ${{ env.CONFIGMAP_FILE_PATH }})" >> $GITHUB_OUTPUT
        - name: Export Configmap
          uses: unfor19/configmap-action@development
          with:
